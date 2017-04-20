@@ -1121,9 +1121,9 @@ elf32_zpu_gc_sweep_hook (bfd *abfd ATTRIBUTE_UNUSED,
   return TRUE;
 }
 
-// only big in ZPU
-#define TARGET_BIG_SYM			bfd_elf32_zpu_vec
-#define TARGET_BIG_NAME			"elf32-zpu"
+// only little endian in this ZPU
+#define TARGET_LITTLE_SYM			bfd_elf32_zpu_vec
+#define TARGET_LITTLE_NAME			"elf32-zpule"
 #define ELF_ARCH			bfd_arch_zpu
 #define ELF_MACHINE_CODE		EM_ZPU
 #define ELF_MAXPAGESIZE			0x1

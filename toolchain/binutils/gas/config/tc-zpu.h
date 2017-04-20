@@ -24,7 +24,7 @@
 struct fix;
 #endif
 
-#define TARGET_BYTES_BIG_ENDIAN 1
+#define TARGET_BYTES_BIG_ENDIAN 0
 
 
 #ifndef BFD_ASSEMBLER
@@ -65,7 +65,7 @@ extern void zpu_init_after_args (void);
 /* We don't need to handle .word strangely.  */
 #define WORKING_DOT_WORD
 
-#define md_number_to_chars           number_to_chars_bigendian
+#define md_number_to_chars           number_to_chars_littleendian
 
 #define TC_HANDLES_FX_DONE
 

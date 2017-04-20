@@ -393,7 +393,7 @@ static void emit_insn_core(int insn)
 	  char *f;
 	  f = frag_more (1);
 	  dwarf2_emit_insn (1);
-	  number_to_chars_bigendian (f, insn, 1);
+	  number_to_chars_littleendian (f, insn, 1);
 }
 
 static int immediate=0;

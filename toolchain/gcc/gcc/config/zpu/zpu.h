@@ -183,8 +183,8 @@ extern const char *zpu_board_name;
 
 
 #define BITS_BIG_ENDIAN                 0 /* TARGET_BITSBIG */
-#define BYTES_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
-#define WORDS_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
+#define BYTES_BIG_ENDIAN                0 /* TARGET_BYTESBIG */
+#define WORDS_BIG_ENDIAN                0 /* TARGET_BYTESBIG */
 #define BITS_PER_UNIT                   8
 #define BITS_PER_WORD                   32
 #define UNITS_PER_WORD                  4

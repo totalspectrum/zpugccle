@@ -1,0 +1,84 @@
+diff --git a/toolchain/binutils/bfd/elf32-zpu.c b/toolchain/binutils/bfd/elf32-zpu.c
+index 19b56e3..d441af2 100755
+--- a/toolchain/binutils/bfd/elf32-zpu.c
++++ b/toolchain/binutils/bfd/elf32-zpu.c
+@@ -1121,9 +1121,9 @@ elf32_zpu_gc_sweep_hook (bfd *abfd ATTRIBUTE_UNUSED,
+   return TRUE;
+ }
+ 
+-// only big in ZPU
+-#define TARGET_BIG_SYM			bfd_elf32_zpu_vec
+-#define TARGET_BIG_NAME			"elf32-zpu"
++// only little endian in this ZPU
++#define TARGET_LITTLE_SYM			bfd_elf32_zpu_vec
++#define TARGET_LITTLE_NAME			"elf32-zpule"
+ #define ELF_ARCH			bfd_arch_zpu
+ #define ELF_MACHINE_CODE		EM_ZPU
+ #define ELF_MAXPAGESIZE			0x1
+diff --git a/toolchain/binutils/gas/config/tc-zpu.c b/toolchain/binutils/gas/config/tc-zpu.c
+index 6b1f127..d9844fa 100755
+--- a/toolchain/binutils/gas/config/tc-zpu.c
++++ b/toolchain/binutils/gas/config/tc-zpu.c
+@@ -393,7 +393,7 @@ static void emit_insn_core(int insn)
+ 	  char *f;
+ 	  f = frag_more (1);
+ 	  dwarf2_emit_insn (1);
+-	  number_to_chars_bigendian (f, insn, 1);
++	  number_to_chars_littleendian (f, insn, 1);
+ }
+ 
+ static int immediate=0;
+diff --git a/toolchain/binutils/gas/config/tc-zpu.h b/toolchain/binutils/gas/config/tc-zpu.h
+index 06fc31e..935e7fa 100755
+--- a/toolchain/binutils/gas/config/tc-zpu.h
++++ b/toolchain/binutils/gas/config/tc-zpu.h
+@@ -24,7 +24,7 @@
+ struct fix;
+ #endif
+ 
+-#define TARGET_BYTES_BIG_ENDIAN 1
++#define TARGET_BYTES_BIG_ENDIAN 0
+ 
+ 
+ #ifndef BFD_ASSEMBLER
+@@ -65,7 +65,7 @@ extern void zpu_init_after_args (void);
+ /* We don't need to handle .word strangely.  */
+ #define WORKING_DOT_WORD
+ 
+-#define md_number_to_chars           number_to_chars_bigendian
++#define md_number_to_chars           number_to_chars_littleendian
+ 
+ #define TC_HANDLES_FX_DONE
+ 
+diff --git a/toolchain/binutils/gas/doc/as.info b/toolchain/binutils/gas/doc/as.info
+old mode 100755
+new mode 100644
+index 99a1625..e69de29
+diff --git a/toolchain/binutils/include/elf/common.h b/toolchain/binutils/include/elf/common.h
+index d8bc92b..df5a59a 100755
+--- a/toolchain/binutils/include/elf/common.h
++++ b/toolchain/binutils/include/elf/common.h
+@@ -181,7 +181,7 @@
+ #define EM_XTENSA	 94	/* Tensilica Xtensa Architecture */
+ #define EM_IP2K		101	/* Ubicom IP2022 micro controller */
+ #define EM_MSP430	105	/* TI msp430 micro controller */
+-#define EM_ZPU		106	/* Zylin ZPU */
++#define EM_ZPU		0xf106	/* Zylin ZPU */
+ 
+ /* If it is necessary to assign new unofficial EM_* values, please pick large
+    random numbers (0x8523, 0xa7f2, etc.) to minimize the chances of collision
+diff --git a/toolchain/gcc/gcc/config/zpu/zpu.h b/toolchain/gcc/gcc/config/zpu/zpu.h
+index 46483a0..46ff1bf 100755
+--- a/toolchain/gcc/gcc/config/zpu/zpu.h
++++ b/toolchain/gcc/gcc/config/zpu/zpu.h
+@@ -183,8 +183,8 @@ extern const char *zpu_board_name;
+ 
+ 
+ #define BITS_BIG_ENDIAN                 0 /* TARGET_BITSBIG */
+-#define BYTES_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
+-#define WORDS_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
++#define BYTES_BIG_ENDIAN                0 /* TARGET_BYTESBIG */
++#define WORDS_BIG_ENDIAN                0 /* TARGET_BYTESBIG */
+ #define BITS_PER_UNIT                   8
+ #define BITS_PER_WORD                   32
+ #define UNITS_PER_WORD                  4

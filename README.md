@@ -1,4 +1,22 @@
-# zpugcc
+# Little Endian zpugcc
+
+This is a version of the ZPU toolchain for a little endian GPU.
+
+## Background
+
+The ZPU (https://github.com/zylin/zpu) is a tiny 32 bit CPU designed for FPGAs. It is normally big endian, which makes sense for a hardware implementation. For software emulation on a little endian machine, though, the big endian architecture imposes a performance penalty. So this toolchain is adapted for a little endian variant of the ZPU, for example emulated on the little endian Parallax Propeller (https://github.com/totalspectrum/zog).
+
+## Caveats
+
+The tools have all been ported to little endian, but the runtime exception handlers have not. In particular, emulation of loadb/loadh/storeb/storeh will not work correctly. That's not a problem if those instructions are implemented in hardware (or emulated directly). If you're trying to implement a little endian version of the ZPU in hardware make sure you either implement those instructions in hardware or else fix the emulation code.
+
+## License
+
+The various subdirectories have appropriate COPYING files in them. Generally most of the tools are under the GPL, whereas the runtime library is under the more permissive newlib license.
+
+The changes I had to make to port the toolchain to little endian mode are in the file "little_endian.patch". You can revert those to get back the original big endian ZPU toolchain.
+
+# Original Readme for zpugcc
 
 This repository contain the gcc, which is adapted for https://github.com/zylin/zpu CPU,
 the worlds smallest 32 bit CPU with GCC toolchain.

@@ -181,7 +181,7 @@
 #define EM_XTENSA	 94	/* Tensilica Xtensa Architecture */
 #define EM_IP2K		101	/* Ubicom IP2022 micro controller */
 #define EM_MSP430	105	/* TI msp430 micro controller */
-#define EM_ZPU		106	/* Zylin ZPU */
+#define EM_ZPU		0xf106	/* Zylin ZPU */
 
 /* If it is necessary to assign new unofficial EM_* values, please pick large
    random numbers (0x8523, 0xa7f2, etc.) to minimize the chances of collision
